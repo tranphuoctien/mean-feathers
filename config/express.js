@@ -3,7 +3,9 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
+var fs = require('fs'),
+    path = require('path'),
+    express = require('express'),
     consolidate = require('consolidate'),
     mongoStore = require('connect-mongo')(express),
     flash = require('connect-flash'),
@@ -17,7 +19,7 @@ module.exports = function(app, passport, db) {
     app.locals.pretty = true;
 		// cache=memory or swig dies in NODE_ENV=production
 		app.locals.cache = 'memory';
-		
+
     // Should be placed before express.static
     // To ensure that all assets and data are compressed (utilize bandwidth)
     app.use(express.compress({
@@ -73,6 +75,24 @@ module.exports = function(app, passport, db) {
 
         // Connect flash for flash messages
         app.use(flash());
+
+        // Bootstrap services
+        var services_path = path.resolve(__dirname, '../app/services');
+        var walk_services = function (path) {
+          fs.readdirSync(path).forEach(function (file) {
+            var newPath = path + '/' + file;
+            var stat = fs.statSync(newPath);
+            if (stat.isFile()) {
+              if (/(.*)\.(js|coffee)/.test(file)) {
+                // Register service
+                app.use('/' + file.slice(0, -3), require(newPath));
+              }
+            } else if (stat.isDirectory()) {
+              walk_services(newPath);
+            }
+          });
+        };
+        walk_services(services_path);
 
         // Routes should be at the last
         app.use(app.router);

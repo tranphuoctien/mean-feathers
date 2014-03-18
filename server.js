@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
+var feathers = require('feathers'),
     fs = require('fs'),
     passport = require('passport'),
     logger = require('mean-logger');
@@ -44,7 +44,7 @@ walk(models_path);
 // Bootstrap passport config
 require('./config/passport')(passport);
 
-var app = express();
+var app = feathers();
 
 // Express settings
 require('./config/express')(app, passport, db);
@@ -60,7 +60,7 @@ var walk = function(path) {
                 require(newPath)(app, passport);
             }
         // We skip the app/routes/middlewares directory as it is meant to be
-        // used and shared by routes as further middlewares and is not a 
+        // used and shared by routes as further middlewares and is not a
         // route by itself
         } else if (stat.isDirectory() && file !== 'middlewares') {
             walk(newPath);
@@ -68,7 +68,6 @@ var walk = function(path) {
     });
 };
 walk(routes_path);
-
 
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port;
