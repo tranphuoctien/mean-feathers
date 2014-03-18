@@ -6,6 +6,7 @@
 var fs = require('fs'),
     path = require('path'),
     express = require('express'),
+    feathers = require('feathers'),
     consolidate = require('consolidate'),
     mongoStore = require('connect-mongo')(express),
     flash = require('connect-flash'),
@@ -75,6 +76,9 @@ module.exports = function(app, passport, db) {
 
         // Connect flash for flash messages
         app.use(flash());
+
+        // Setup feathers
+        app.configure(feathers.socketio());
 
         // Bootstrap services
         var services_path = path.resolve(__dirname, '../app/services');
