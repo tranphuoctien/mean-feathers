@@ -1,3 +1,4 @@
+/*global io*/
 'use strict';
 
 angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles', function ($scope, $stateParams, $location, Global, Articles) {
@@ -6,13 +7,13 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
 
     var socket = io.connect('http://localhost:3000/');
     socket.on('articles created', function () {
-        $scope.find()
+        $scope.find();
     });
     socket.on('articles updated', function () {
-        $scope.find()
+        $scope.find();
     });
     socket.on('articles removed', function () {
-        $scope.find()
+        $scope.find();
     });
 
     $scope.create = function () {
@@ -42,6 +43,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
         }
         else {
             socket.emit('articles::remove', $scope.article._id, {}, function (err) {
+                console.log('TODO handle error', err);
                 //TODO handle error
             });
 //            $scope.article.$remove();
@@ -60,6 +62,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
             title: article.title,
             content: article.content
         }, {}, function (err) {
+            console.log('TODO handle error', err);
             //TODO handle error
         });
         $location.path('articles/' + article._id);
