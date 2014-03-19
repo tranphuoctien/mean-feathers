@@ -9,8 +9,8 @@ module.exports = {
 
     getById: function (id, callback) {
         Article.load(id, function (err, article) {
-            if (err) return next(err);
-            if (!article) return next(new Error('Failed to load article ' + id));
+            if (err) return callback(err);
+            if (!article) return callback(new Error('Failed to load article ' + id));
             callback(null, article);
         });
     },
