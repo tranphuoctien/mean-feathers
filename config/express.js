@@ -10,6 +10,7 @@ var fs = require('fs'),
     consolidate = require('consolidate'),
     mongoStore = require('connect-mongo')(express),
     flash = require('connect-flash'),
+    authorization = require('../app/routes/middlewares/authorization'),
     helpers = require('view-helpers'),
     config = require('./config');
 
@@ -79,6 +80,12 @@ module.exports = function(app, passport, db) {
 
         // Setup feathers
         app.configure(feathers.socketio());
+
+        // Assign user to feathers
+        app.use(function(req, res, next) {
+            req.feathers.user = req.user;
+            next();
+        });
 
         // Bootstrap services
         var services_path = path.resolve(__dirname, '../app/services');

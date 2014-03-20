@@ -35,9 +35,7 @@ module.exports = {
 
     create: function (data, params, callback) {
         var article = new Article(data);
-
-        // TODO assign current user
-        //article.user = data.user;
+        article.user = params.user;
 
         article.save(function (err) {
             callback(err, article);
