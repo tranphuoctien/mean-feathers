@@ -1,37 +1,22 @@
-/*global io*/
 'use strict';
 
 angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles', function ($scope, $stateParams, $location, Global, Articles) {
     $scope.global = Global;
 
-
-    var socket = io.connect('http://localhost:3000/');
-    socket.on('articles created', function () {
-        $scope.find();
-    });
-    socket.on('articles updated', function () {
-        $scope.find();
-    });
-    socket.on('articles removed', function () {
-        $scope.find();
-    });
-
-    $scope.create = function () {
-
-        socket.emit('articles::create', {
+    $scope.create = function() {
+        var article = new Articles({
             title: this.title,
             content: this.content
-        }, {}, function (error, article) {
-            new Articles(article).$save(function (response) {
-                $location.path('articles/' + response._id);
-            });
+        });
+        article.$save(function(response) {
+            $location.path('articles/' + response._id);
         });
 
         this.title = '';
         this.content = '';
     };
 
-    $scope.remove = function (article) {
+    $scope.remove = function(article) {
         if (article) {
             article.$remove();
 
@@ -42,47 +27,33 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
             }
         }
         else {
-            socket.emit('articles::remove', $scope.article._id, {}, function (err) {
-                console.log('TODO handle error', err);
-                //TODO handle error
-            });
-//            $scope.article.$remove();
+            $scope.article.$remove();
             $location.path('articles');
         }
     };
 
-    $scope.update = function () {
+    $scope.update = function() {
         var article = $scope.article;
         if (!article.updated) {
             article.updated = [];
         }
         article.updated.push(new Date().getTime());
 
-        socket.emit('articles::update', article._id, {
-            title: article.title,
-            content: article.content
-        }, {}, function (err) {
-            console.log('TODO handle error', err);
-            //TODO handle error
+        article.$update(function() {
+            $location.path('articles/' + article._id);
         });
-        $location.path('articles/' + article._id);
-
-
-//        article.$update(function() {
-//            $location.path('articles/' + article._id);
-//        });
     };
 
-    $scope.find = function () {
-        Articles.query(function (articles) {
+    $scope.find = function() {
+        Articles.query(function(articles) {
             $scope.articles = articles;
         });
     };
 
-    $scope.findOne = function () {
+    $scope.findOne = function() {
         Articles.get({
             articleId: $stateParams.articleId
-        }, function (article) {
+        }, function(article) {
             $scope.article = article;
         });
     };

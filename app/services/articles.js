@@ -44,7 +44,6 @@ module.exports = {
         if(!params.user) {
             return callback(new Error('You need to be authenticated'));
         }
-
         var article = new Article(data);
         article.user = params.user;
 
