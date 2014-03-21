@@ -19,8 +19,8 @@ module.exports = function(app, passport, db) {
 
     // Prettify HTML
     app.locals.pretty = true;
-		// cache=memory or swig dies in NODE_ENV=production
-		app.locals.cache = 'memory';
+    // cache=memory or swig dies in NODE_ENV=production
+    app.locals.cache = 'memory';
 
     // Should be placed before express.static
     // To ensure that all assets and data are compressed (utilize bandwidth)
@@ -90,18 +90,18 @@ module.exports = function(app, passport, db) {
         // Bootstrap services
         var services_path = path.resolve(__dirname, '../app/services');
         var walk_services = function (path) {
-          fs.readdirSync(path).forEach(function (file) {
-            var newPath = path + '/' + file;
-            var stat = fs.statSync(newPath);
-            if (stat.isFile()) {
-              if (/(.*)\.(js|coffee)/.test(file)) {
-                // Register service
-                app.use('/' + file.slice(0, -3), require(newPath));
-              }
-            } else if (stat.isDirectory()) {
-              walk_services(newPath);
-            }
-          });
+            fs.readdirSync(path).forEach(function (file) {
+                var newPath = path + '/' + file;
+                var stat = fs.statSync(newPath);
+                if (stat.isFile()) {
+                    if (/(.*)\.(js|coffee)/.test(file)) {
+                        // Register service
+                        app.use('/' + file.slice(0, -3), require(newPath));
+                    }
+                } else if (stat.isDirectory()) {
+                    walk_services(newPath);
+                }
+            });
         };
         walk_services(services_path);
 
