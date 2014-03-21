@@ -11,7 +11,7 @@ var should = require('should'),
 var user, user2;
 
 //The tests
-describe('<Unit Test>', function() {
+describe('Unit Test', function() {
     describe('Model User:', function() {
         before(function(done) {
             user = new User({
