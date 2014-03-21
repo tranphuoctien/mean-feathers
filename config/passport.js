@@ -75,12 +75,14 @@ module.exports = function(passport) {
                     }
                     user[provider] = profile._json;
                     user[provider].token = token;
+                    user[provider].tokenSecret = tokenSecret;
                     user.save(function(err) {
                         if (err) console.log(err);
                         return done(err, user);
                     });
                 } else {
                     user[provider].token = token;
+                    user[provider].tokenSecret = tokenSecret;
                     user.save(function(err) {
                         if (err) console.log(err);
                         return done(err, user);
@@ -96,6 +98,7 @@ module.exports = function(passport) {
                 if (user) {
                     user[provider] = profile._json;
                     user[provider].token = token;
+                    user[provider].tokenSecret = tokenSecret;
                     user.save(function(err) {
                         if (err) console.log(err);
                         return done(err, user);
