@@ -14,7 +14,8 @@
     "scripts": {
         "start": "node node_modules/grunt-cli/bin/grunt",
         "test": "node node_modules/grunt-cli/bin/grunt test",
-        "postinstall": "node node_modules/bower/bin/bower install"
+        "postinstall": "node node_modules/bower/bin/bower install",
+        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/mocha/**/*.js -r ./server.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
     },
     "dependencies": {
         "express": "~3.4.7",
@@ -57,6 +58,7 @@
         "karma-requirejs": "~0.2.0",
         "karma-phantomjs-launcher": "~0.1.0",
         "supertest": "0.8.2",
-        "should": "2.1.1"
+        "should": "3.1.1",
+        "istanbul": "~0.2.6"
     }
 }

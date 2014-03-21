@@ -1,4 +1,4 @@
-# MEAN Stack [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
+# MEAN Stack [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency Status][daviddm-url]][daviddm-image]
 
 MEAN is a boilerplate that provides a nice starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications. It is designed to give you quick and organized way to start developing of MEAN based web apps with useful modules like mongoose and passport pre-bundled and configured. We mainly try to take care of the connection points between existing popular frameworks and solve common integration problems.
 
@@ -163,3 +163,5 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [travis-image]: https://travis-ci.org/meanher/feathers-mean.png?branch=master
 [daviddm-url]: https://david-dm.org/meanher/feathers-mean.png?theme=shields.io
 [daviddm-image]: https://david-dm.org/meanher/feathers-mean
+[coveralls-url]: https://coveralls.io/r/meanher/feathers-mean
+[coveralls-image]: https://coveralls.io/repos/meanher/feathers-mean/badge.png
