@@ -80,6 +80,14 @@ module.exports = function(app, passport, db) {
         // Setup feathers
         app.configure(feathers.socketio());
 
+        // Make sure that everything else only works with authentication
+        app.use(function(req,res,next){
+            if(req.isAuthenticated()){
+                req.feathers.user = req.user;
+            }
+            next();
+        });
+
         // Bootstrap services
         var services_path = path.resolve(__dirname, '../app/services');
         var walk_services = function (path) {
