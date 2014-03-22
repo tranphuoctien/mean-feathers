@@ -58,8 +58,8 @@ module.exports = function(config) {
         },
 
         coverageReporter: {
-            type: 'html',
-            dir: 'test/coverage/'
+            type: 'lcov',
+            dir: 'coverage/'
         },
 
         // web server port
