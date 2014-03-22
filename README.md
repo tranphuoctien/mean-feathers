@@ -164,4 +164,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [daviddm-url]: https://david-dm.org/meanher/feathers-mean.png?theme=shields.io
 [daviddm-image]: https://david-dm.org/meanher/feathers-mean
 [coveralls-url]: https://coveralls.io/r/meanher/feathers-mean
-[coveralls-image]: https://coveralls.io/repos/meanher/feathers-mean/badge.png
+[coveralls-image]: https://coveralls.io/repos/meanher/feathers-mean/badge.png?cache=1
