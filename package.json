@@ -15,7 +15,7 @@
         "start": "node node_modules/grunt-cli/bin/grunt",
         "test": "node node_modules/grunt-cli/bin/grunt test",
         "postinstall": "node node_modules/bower/bin/bower install",
-        "coveralls": "grunt karma:unit && istanbul cover ./node_modules/grunt-mocha-test/node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/mocha/**/*.js -r ./server.js && ./node_modules/lcov-result-merger/bin/lcov-result-merger coverage/**/lcov.info coverage/coveralls.info && cat coverage/coveralls.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+        "coveralls": "grunt karma:unit && istanbul cover ./node_modules/grunt-mocha-test/node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/mocha/**/*.js -r ./server.js && ./node_modules/lcov-result-merger/bin/lcov-result-merger 'coverage/**/*.info' | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
     },
     "dependencies": {
         "express": "~3.4.7",
