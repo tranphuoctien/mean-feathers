@@ -15,7 +15,7 @@
         "start": "node node_modules/grunt-cli/bin/grunt",
         "test": "node node_modules/grunt-cli/bin/grunt test",
         "postinstall": "node node_modules/bower/bin/bower install",
-        "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/mocha/**/*.js -r ./server.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+        "coveralls": "istanbul cover ./node_modules/grunt-mocha-test/node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/mocha/**/*.js -r ./server.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
     },
     "dependencies": {
         "express": "~3.4.7",
