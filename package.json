@@ -59,6 +59,7 @@
         "karma-phantomjs-launcher": "~0.1.0",
         "supertest": "0.8.2",
         "should": "3.1.1",
-        "istanbul": "~0.2.6"
+        "istanbul": "~0.2.6",
+        "coveralls": "~2.10.0"
     }
 }
