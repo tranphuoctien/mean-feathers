@@ -23,8 +23,8 @@ module.exports = {
     },
 
     find: function (params, callback) {
-        Article.find().sort('-created').populate('user', 'name username').exec(function (err, articles) {
-            if (articles === null) {
+        Article.find(params).sort('-created').populate('user', 'name username').exec(function (err, articles) {
+            if (!articles) {
                 return callback(new Error('Articles not found'));
             }
             callback(err, articles);
@@ -33,7 +33,7 @@ module.exports = {
 
     get: function (id, params, callback) {
         this.getById(id, function (err, article) {
-            if (article === null) {
+            if (!article) {
                 return callback(new Error('Article not found'));
             }
             callback(null, article);

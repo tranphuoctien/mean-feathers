@@ -11,6 +11,7 @@ var should = require('should'),
 
 //Globals
 var user;
+var unauthorizedUser;
 
 //The tests
 describe('Unit Test', function() {
@@ -27,6 +28,13 @@ describe('Unit Test', function() {
                 name: 'Full name',
                 email: 'test@test.com',
                 username: 'user',
+                password: 'password'
+            });
+
+            unauthorizedUser = new User({
+                name: 'Norman Noaccess',
+                email: 'noaccess@test.com',
+                username: 'noaccess',
                 password: 'password'
             });
 
@@ -95,7 +103,7 @@ describe('Unit Test', function() {
             });
 
             it('should show an error when try to remove with an unauthorized user', function (done) {
-                Service.remove(tmpArticleId, {user:{}}, function(err) {
+                Service.remove(tmpArticleId, {user:unauthorizedUser}, function(err) {
                     should.exist(err);
                     err.should.be.Error;
                     err.message.should.equal('Can not delete article, not authorized');
@@ -163,6 +171,18 @@ describe('Unit Test', function() {
                     done();
                 })
             });
+
+            it('should show an error when try to update with an invalid article id', function (done) {
+                var data = {
+                    title: 'New Title'
+                }
+                Service.update(tmpArticleId, data, {user: unauthorizedUser}, function(err, article) {
+                    should.exist(err);
+                    err.should.be.Error;
+                    err.message.should.equal('Can not update article, not authorized');
+                    done();
+                })
+            });
         });
 
         describe('Method Get', function() {
@@ -209,6 +229,48 @@ describe('Unit Test', function() {
                     done();
                 })
             });
+        });
+
+        describe('Method Find', function() {
+
+            beforeEach(function(done) {
+                var data = {
+                    title: 'First Article Title',
+                    content: 'FirstArticle Content'
+                };
+                Service.create(data, {user: user}, function (err, article) {
+                    should.not.exist(err);
+                    var data = {
+                        title: 'Second Article Title',
+                        content: 'Second Article Content'
+                    };
+                    Service.create(data, {user: user}, function (err, article) {
+                        should.not.exist(err);
+                        done();
+                    });
+                });
+
+            });
+
+            it('should be able to find without problems', function (done) {
+
+                Service.find({user:user}, function(err, articles) {
+                    should.not.exist(err);
+                    articles.should.be.length(2);
+                    done();
+                })
+            });
+
+            it('should be able to find only one without problems', function (done) {
+
+                Service.find({title: 'Second Article Title'}, function(err, articles) {
+                    should.not.exist(err);
+                    articles.should.be.length(1);
+                    articles[0].title.should.equal('Second Article Title');
+                    done();
+                })
+            });
+
         });
 
         afterEach(function(done) {
