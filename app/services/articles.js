@@ -57,7 +57,7 @@ module.exports = {
             return callback(new Error('You need to be authenticated'));
         }
         this.getById(id, function (err, article) {
-            if (article === null) {
+            if (!article) {
                 return callback(new Error('Can not update article'));
             }
 
@@ -77,7 +77,7 @@ module.exports = {
             return callback(new Error('You need to be authenticated'));
         }
         this.getById(id, function (err, article) {
-            if (article === null) {
+            if (!article) {
                 return callback(new Error('Can not delete article'));
             }
 

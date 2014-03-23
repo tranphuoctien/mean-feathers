@@ -6,6 +6,7 @@
 var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    Article = mongoose.model('Article'),
     Service = require('../../../app/services/articles');
 
 //Globals
@@ -14,7 +15,14 @@ var user;
 //The tests
 describe('Unit Test', function() {
     describe('Service Article:', function() {
+
+        var cleanup = function() {
+            Article.remove().exec();
+            User.remove().exec();
+        }
+
         beforeEach(function(done) {
+            cleanup();
             user = new User({
                 name: 'Full name',
                 email: 'test@test.com',
@@ -49,6 +57,7 @@ describe('Unit Test', function() {
                 };
                 Service.create(data, {}, function (err) {
                     should.exist(err);
+                    err.should.be.Error;
                     done();
                 })
             });
@@ -79,6 +88,25 @@ describe('Unit Test', function() {
             it('should show an error when try to remove without a user', function (done) {
                 Service.remove(tmpArticleId, {}, function(err) {
                     should.exist(err);
+                    err.should.be.Error;
+                    err.message.should.equal('You need to be authenticated');
+                    done();
+                })
+            });
+
+            it('should show an error when try to remove with an unauthorized user', function (done) {
+                Service.remove(tmpArticleId, {user:{}}, function(err) {
+                    should.exist(err);
+                    err.should.be.Error;
+                    err.message.should.equal('Can not delete article, not authorized');
+                    done();
+                })
+            });
+
+            it('should show an error when try to remove with an invalid article id', function (done) {
+                Service.remove('blub', {user: user}, function(err) {
+                    err.should.be.Error;
+                    err.message.should.equal('Can not delete article');
                     done();
                 })
             });
@@ -118,6 +146,20 @@ describe('Unit Test', function() {
                 }
                 Service.update(tmpArticleId, data, {}, function(err, article) {
                     should.exist(err);
+                    err.should.be.Error;
+                    err.message.should.equal('You need to be authenticated');
+                    done();
+                })
+            });
+
+            it('should show an error when try to update with an invalid article id', function (done) {
+                var data = {
+                    title: 'New Title'
+                }
+                Service.update('blub', data, {user:user}, function(err, article) {
+                    should.exist(err);
+                    err.should.be.Error;
+                    err.message.should.equal('Can not update article');
                     done();
                 })
             });
@@ -159,10 +201,18 @@ describe('Unit Test', function() {
                     done();
                 })
             });
+
+            it('should show an error when try to get with an invalid article id', function (done) {
+
+                Service.getById('blubl', function(err) {
+                    should.exist(err);
+                    done();
+                })
+            });
         });
 
         afterEach(function(done) {
-            user.remove();
+            cleanup();
             done();
         });
     });
