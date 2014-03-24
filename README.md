@@ -159,9 +159,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [npm-url]: https://npmjs.org/package/feathers-mean
 [npm-image]: https://badge.fury.io/js/feathers-mean.png
-[travis-url]: https://travis-ci.org/meanher/feathers-mean
-[travis-image]: https://travis-ci.org/meanher/feathers-mean.png?branch=master
-[daviddm-url]: https://david-dm.org/meanher/feathers-mean.png?theme=shields.io
-[daviddm-image]: https://david-dm.org/meanher/feathers-mean
-[coveralls-url]: https://coveralls.io/r/meanher/feathers-mean
-[coveralls-image]: https://coveralls.io/repos/meanher/feathers-mean/badge.png?cache=1
+[travis-url]: https://travis-ci.org/meaner/feathers-mean
+[travis-image]: https://travis-ci.org/meaner/feathers-mean.png?branch=master
+[daviddm-url]: https://david-dm.org/meaner/feathers-mean.png?theme=shields.io
+[daviddm-image]: https://david-dm.org/meaner/feathers-mean
+[coveralls-url]: https://coveralls.io/r/meaner/feathers-mean
+[coveralls-image]: https://coveralls.io/repos/meaner/feathers-mean/badge.png
