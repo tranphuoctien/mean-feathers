@@ -20,7 +20,7 @@ describe('Unit Test', function() {
         var cleanup = function() {
             Article.remove().exec();
             User.remove().exec();
-        }
+        };
 
         beforeEach(function(done) {
             cleanup();
@@ -67,7 +67,7 @@ describe('Unit Test', function() {
                     should.exist(err);
                     err.should.be.Error;
                     done();
-                })
+                });
             });
         });
 
@@ -90,7 +90,7 @@ describe('Unit Test', function() {
                 Service.remove(tmpArticleId, {user:user}, function(err) {
                     should.not.exist(err);
                     done();
-                })
+                });
             });
 
             it('should show an error when try to remove without a user', function (done) {
@@ -99,7 +99,7 @@ describe('Unit Test', function() {
                     err.should.be.Error;
                     err.message.should.equal('You need to be authenticated');
                     done();
-                })
+                });
             });
 
             it('should show an error when try to remove with an unauthorized user', function (done) {
@@ -108,7 +108,7 @@ describe('Unit Test', function() {
                     err.should.be.Error;
                     err.message.should.equal('Can not delete article, not authorized');
                     done();
-                })
+                });
             });
 
             it('should show an error when try to remove with an invalid article id', function (done) {
@@ -116,7 +116,7 @@ describe('Unit Test', function() {
                     err.should.be.Error;
                     err.message.should.equal('Can not delete article');
                     done();
-                })
+                });
             });
         });
 
@@ -138,50 +138,50 @@ describe('Unit Test', function() {
             it('should be able to update without problems', function (done) {
                 var data = {
                     title: 'New Title'
-                }
+                };
                 Service.update(tmpArticleId, data, {user:user}, function(err, article) {
                     should.not.exist(err);
                     article.title.should.equal('New Title');
                     article.content.should.equal('Article Content');
 
                     done();
-                })
+                });
             });
 
             it('should show an error when try to update without a user', function (done) {
                 var data = {
                     title: 'New Title'
-                }
-                Service.update(tmpArticleId, data, {}, function(err, article) {
+                };
+                Service.update(tmpArticleId, data, {}, function(err) {
                     should.exist(err);
                     err.should.be.Error;
                     err.message.should.equal('You need to be authenticated');
                     done();
-                })
+                });
             });
 
             it('should show an error when try to update with an invalid article id', function (done) {
                 var data = {
                     title: 'New Title'
-                }
-                Service.update('blub', data, {user:user}, function(err, article) {
+                };
+                Service.update('blub', data, {user:user}, function(err) {
                     should.exist(err);
                     err.should.be.Error;
                     err.message.should.equal('Can not update article');
                     done();
-                })
+                });
             });
 
             it('should show an error when try to update with an invalid article id', function (done) {
                 var data = {
                     title: 'New Title'
-                }
-                Service.update(tmpArticleId, data, {user: unauthorizedUser}, function(err, article) {
+                };
+                Service.update(tmpArticleId, data, {user: unauthorizedUser}, function(err) {
                     should.exist(err);
                     err.should.be.Error;
                     err.message.should.equal('Can not update article, not authorized');
                     done();
-                })
+                });
             });
         });
 
@@ -208,7 +208,7 @@ describe('Unit Test', function() {
                     article.title.should.equal('Article Title');
                     article.content.should.equal('Article Content');
                     done();
-                })
+                });
             });
 
             it('should be able to get without problems', function (done) {
@@ -219,7 +219,7 @@ describe('Unit Test', function() {
                     article.title.should.equal('Article Title');
                     article.content.should.equal('Article Content');
                     done();
-                })
+                });
             });
 
             it('should show an error when try to get with an invalid article id', function (done) {
@@ -227,7 +227,7 @@ describe('Unit Test', function() {
                 Service.getById('blubl', function(err) {
                     should.exist(err);
                     done();
-                })
+                });
             });
         });
 
@@ -238,13 +238,13 @@ describe('Unit Test', function() {
                     title: 'First Article Title',
                     content: 'FirstArticle Content'
                 };
-                Service.create(data, {user: user}, function (err, article) {
+                Service.create(data, {user: user}, function (err) {
                     should.not.exist(err);
                     var data = {
                         title: 'Second Article Title',
                         content: 'Second Article Content'
                     };
-                    Service.create(data, {user: user}, function (err, article) {
+                    Service.create(data, {user: user}, function (err) {
                         should.not.exist(err);
                         done();
                     });
@@ -258,7 +258,7 @@ describe('Unit Test', function() {
                     should.not.exist(err);
                     articles.should.be.length(2);
                     done();
-                })
+                });
             });
 
             it('should be able to find only one without problems', function (done) {
@@ -268,7 +268,7 @@ describe('Unit Test', function() {
                     articles.should.be.length(1);
                     articles[0].title.should.equal('Second Article Title');
                     done();
-                })
+                });
             });
 
         });
