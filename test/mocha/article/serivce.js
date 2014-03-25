@@ -223,7 +223,7 @@ describe('Unit Test', function() {
                 });
             });
 
-            it.only('should show an error when try to get with an invalid article id', function (done) {
+            it('should show an error when try to get with an invalid article id', function (done) {
 
                 Service.getById('123456789123456789123456', function(err) {
                     should.exist(err);
