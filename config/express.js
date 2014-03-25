@@ -12,7 +12,8 @@ var fs = require('fs'),
     flash = require('connect-flash'),
     authorization = require('../app/routes/middlewares/authorization'),
     helpers = require('view-helpers'),
-    config = require('./config');
+    config = require('./config'),
+    expressValidator = require("express-validator");
 
 module.exports = function(app, passport, db) {
     app.set('showStackError', true);
@@ -57,6 +58,7 @@ module.exports = function(app, passport, db) {
         // Request body parsing middleware should be above methodOverride
         app.use(express.urlencoded());
         app.use(express.json());
+        app.use(expressValidator());
         app.use(express.methodOverride());
 
         // Express/Mongo session storage
