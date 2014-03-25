@@ -263,6 +263,24 @@ describe('Unit Test', function() {
                 });
             });
 
+            it('should be able to find without problems - REST call', function (done) {
+
+                Service.find({query: {}}, function(err, articles) {
+                    should.not.exist(err);
+                    articles.should.be.length(2);
+                    done();
+                });
+            });
+
+            it('should be able to find without problems - REST call with user object', function (done) {
+
+                Service.find({query: {}, user:{}}, function(err, articles) {
+                    should.not.exist(err);
+                    articles.should.be.length(2);
+                    done();
+                });
+            });
+
             it('should be able to find only one without problems', function (done) {
 
                 Service.find({title: 'Second Article Title'}, function(err, articles) {
@@ -275,13 +293,14 @@ describe('Unit Test', function() {
 
             it('should find nothing', function (done) {
 
-                Service.find({abc: 'xyz'}, function(err, articles) {
+                Service.find({abc: 'xyz'}, function(err) {
                     should.exist(err);
                     err.should.be.Error;
                     err.message.should.equal('Articles not found');
                     done();
                 });
             });
+
 
         });
 
