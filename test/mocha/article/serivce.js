@@ -66,6 +66,7 @@ describe('Unit Test', function() {
                 Service.create(data, {}, function (err) {
                     should.exist(err);
                     err.should.be.Error;
+                    err.message.should.equal('You need to be authenticated');
                     done();
                 });
             });
@@ -222,10 +223,11 @@ describe('Unit Test', function() {
                 });
             });
 
-            it('should show an error when try to get with an invalid article id', function (done) {
+            it.only('should show an error when try to get with an invalid article id', function (done) {
 
-                Service.getById('blubl', function(err) {
+                Service.getById('123456789123456789123456', function(err) {
                     should.exist(err);
+                    err.message.should.equal('Failed to load article 123456789123456789123456');
                     done();
                 });
             });
@@ -267,6 +269,16 @@ describe('Unit Test', function() {
                     should.not.exist(err);
                     articles.should.be.length(1);
                     articles[0].title.should.equal('Second Article Title');
+                    done();
+                });
+            });
+
+            it('should find nothing', function (done) {
+
+                Service.find({abc: 'xyz'}, function(err, articles) {
+                    should.exist(err);
+                    err.should.be.Error;
+                    err.message.should.equal('Articles not found');
                     done();
                 });
             });

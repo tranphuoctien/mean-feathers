@@ -24,7 +24,7 @@ module.exports = {
 
     find: function (params, callback) {
         Article.find(params).sort('-created').populate('user', 'name username').exec(function (err, articles) {
-            if (!articles) {
+            if (!articles || !articles.length) {
                 return callback(new Error('Articles not found'));
             }
             callback(err, articles);
