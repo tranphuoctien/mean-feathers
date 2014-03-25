@@ -23,6 +23,10 @@ module.exports = {
     },
 
     find: function (params, callback) {
+        // TODO - remove dirty fix for REST call
+        if (params.query) {
+            params = params.query;
+        }
         Article.find(params).sort('-created').populate('user', 'name username').exec(function (err, articles) {
             if (!articles) {
                 return callback(new Error('Articles not found'));
